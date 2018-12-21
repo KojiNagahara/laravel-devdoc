@@ -1,0 +1,48 @@
+@startuml domain
+title ドメインモデル(論理)
+left to right direction
+
+class Team {
+  name:String
+  leader:User
+  active:boolean
+}
+class User {
+  name:String
+  email:String
+  password:String
+}
+note bottom:Laravel標準のUserクラスを流用
+class Project {
+    name:String
+    start:Date
+    end:Date
+}
+class Task {
+    name:String
+    difficulty:int
+    priority:int
+}
+class Profile {
+    icon:Photo
+}
+class Skill {
+    name:String
+    level:int
+}
+class Category {
+    name:String
+}
+class CategoryLevel {
+    description:String
+    level:int
+}
+User"*"<--*"1"Team : 所属する >
+Team"1"*-->"*"Project : 遂行する >
+Project"1"*-->"*"Task
+Task"*"-->"1"User : 実行する <
+User"1"-->"1"Profile : 設定する >
+Profile"*"*-->"*"Skill
+Skill"*"-->"1"Category
+Category"1"-->"*"CategoryLevel
+@enduml
